@@ -24,5 +24,9 @@ public class Mentee {
     private String learningGoals;
 
     private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "mentor_id")
+    private Mentor mentor;
 }
 

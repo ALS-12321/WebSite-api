@@ -1,9 +1,9 @@
 package com.guidejourney.Mentory_Servive.service;
 
-import com.guidejourney.Mentory_Servive.model.dto.MentorDTO;
-import java.util.List;
-import com.mentor.model.entity.Mentor;
-import com.mentor.repository.MentorRepository;
+import com.guidejourney.Mentory_Servive.model.entity.Mentee;
+import com.guidejourney.Mentory_Servive.model.entity.Mentor;
+import com.guidejourney.Mentory_Servive.repository.MentorRepository;
+import com.guidejourney.Mentory_Servive.repository.MenteeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +14,12 @@ import java.util.Optional;
 public class MentorService {
 
     private final MentorRepository mentorRepository;
+    private final MenteeRepository menteeRepository;
 
     @Autowired
-    public MentorService(MentorRepository mentorRepository) {
+    public MentorService(MentorRepository mentorRepository, MenteeRepository menteeRepository) {
         this.mentorRepository = mentorRepository;
+        this.menteeRepository = menteeRepository;
     }
 
     public List<Mentor> findAll() {
@@ -34,5 +36,9 @@ public class MentorService {
 
     public void deleteById(Long id) {
         mentorRepository.deleteById(id);
+    }
+
+    public List<Mentee> findMenteesByMentor(Mentor mentor) {
+        return menteeRepository.findByMentor(mentor);
     }
 }

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/mentees")
 public class MenteeController {
@@ -50,4 +52,23 @@ public class MenteeController {
             return ResponseEntity.notFound().build();
         }
     }
-}
+
+    @GetMapping("/mentor")
+    public ResponseEntity<List<MenteeResponseDTO>> getMenteesByMentor() {
+        Long mentorId = obtenerMentorAutenticadoId(); // Implementar esta lógica según tu autenticación
+        List<Mentee> mentees = menteeService.findByMentor(mentorId);
+        if (mentees.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        List<MenteeResponseDTO> menteeResponseDTOS = mentees.stream()
+                .map(menteeMapper::toDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(menteeResponseDTOS);
+    }
+
+    private Long obtenerMentorAutenticadoId() {
+        // Implementa la lógica para obtener el ID del mentor autenticado
+        // Esto puede ser a través de un token JWT, sesión, etc.
+        return 1L; // Placeholder: Reemplazar con la lógica real de autenticación
+    }
+}}
