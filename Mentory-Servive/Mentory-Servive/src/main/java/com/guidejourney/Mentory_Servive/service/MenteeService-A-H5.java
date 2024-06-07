@@ -7,7 +7,6 @@ import com.mentor.repository.MenteeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,5 +34,8 @@ public class MenteeService {
     public void deleteById(Long id) {
         menteeRepository.deleteById(id);
     }
-}
 
+    public List<Mentee> findByMentor(Long mentorId) {
+        return menteeRepository.findByMentorId(mentorId);
+    }
+}

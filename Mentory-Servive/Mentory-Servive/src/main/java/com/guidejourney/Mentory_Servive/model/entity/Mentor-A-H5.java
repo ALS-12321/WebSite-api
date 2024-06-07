@@ -26,5 +26,8 @@ public class Mentor {
     private int yearsOfExperience;
 
     private String email;
+
+    @OneToMany(mappedBy = "mentor")
+    private List<Mentee> mentees;
 }
 
